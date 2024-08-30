@@ -87,7 +87,10 @@ def send_cammessage(message):
 def send_camvideo(videofile, cam_id):
     mycaption = "Camera " + str(cam_load[cam_id]['SynoName'])
     video = open(videofile, 'rb')
-    tg_bot.send_video(chat_id, video, None, None, None, None, mycaption)
+    try:
+        tg_bot.send_video(chat_id, video, caption=mycaption, timeout=30)
+    except TimedOut:
+        print("Отправка видео превысила таймаут в 30 секунд")
 
 
 def firstStart():
